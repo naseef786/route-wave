@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none" aria-label="Route Wave General Transport Logo Symbol">
+  <rect width="48" height="48" rx="10" fill="#0F172A" />
+  <!-- Wave / Route Path (R & W dynamic motif) -->
+  <path d="M12 36V14C12 12.3431 13.3431 11 15 11H23C26.866 11 30 14.134 30 18C30 21.4421 27.518 24.3052 24.238 24.872L31 36H24.5L18.5 25H17V36H12Z" fill="#FFFFFF" />
+  <path d="M17 16V20.5H22.5C23.8807 20.5 25 19.3807 25 18C25 16.6193 23.8807 15.5 22.5 15.5H17.5C17.2239 15.5 17 15.7239 17 16Z" fill="#0F172A" />
+  <!-- Amber Directional Wave Accent -->
+  <path d="M25 24L31.5 36H36.5L28.5 21.5L25 24Z" fill="#D97706" />
+  <path d="M29 11.5L35.5 18L33.5 20L28 14.5L29 11.5Z" fill="#F59E0B" />
+</svg>
