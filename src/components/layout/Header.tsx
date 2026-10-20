@@ -69,8 +69,8 @@ export function Header() {
                   href={link.href}
                   className={`px-3.5 py-2 text-sm font-semibold rounded-md transition-colors ${
                     isActive
-                      ? "text-slate-950 bg-slate-100"
-                      : "text-slate-650 hover:text-slate-900 hover:bg-slate-50"
+                      ? "text-[#0047b7] bg-blue-50/80 font-bold"
+                      : "text-slate-650 hover:text-[#0047b7] hover:bg-slate-50"
                   }`}
                   aria-current={isActive ? "page" : undefined}
                 >
@@ -82,21 +82,21 @@ export function Header() {
 
           {/* Desktop Right Actions */}
           <div className="hidden md:flex items-center gap-3">
-            {/* Optional configured phone action */}
+            {/* Configured phone action */}
             {siteConfig.contact.phone && (
               <a
                 href={`tel:${siteConfig.contact.phone}`}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 px-3 py-2 rounded-md hover:bg-slate-50 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-[#0047b7] px-3 py-2 rounded-md hover:bg-blue-50/50 transition-colors"
                 aria-label={`Call ${siteConfig.contact.phoneDisplay || siteConfig.contact.phone}`}
               >
-                <Phone className="w-3.5 h-3.5 text-amber-600" />
+                <Phone className="w-3.5 h-3.5 text-[#0047b7]" />
                 <span>{siteConfig.contact.phoneDisplay || siteConfig.contact.phone}</span>
               </a>
             )}
 
             <Button
               href="/contact"
-              variant="amber"
+              variant="primary"
               size="sm"
               icon={<ArrowRight className="w-3.5 h-3.5" />}
             >
@@ -109,7 +109,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 rounded-md text-slate-700 hover:text-slate-950 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-amber-600 cursor-pointer"
+              className="p-2.5 rounded-md text-slate-700 hover:text-slate-950 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-[#0047b7] cursor-pointer"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation"
               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -145,8 +145,8 @@ export function Header() {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center justify-between px-4 py-3 text-base font-semibold rounded-md min-h-[48px] ${
                       isActive
-                        ? "text-slate-950 bg-slate-100 font-bold"
-                        : "text-slate-700 hover:text-slate-950 hover:bg-slate-50"
+                        ? "text-[#0047b7] bg-blue-50 font-bold"
+                        : "text-slate-700 hover:text-[#0047b7] hover:bg-slate-50"
                     }`}
                     aria-current={isActive ? "page" : undefined}
                   >
@@ -165,7 +165,7 @@ export function Header() {
                     href={`tel:${siteConfig.contact.phone}`}
                     className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md min-h-[44px]"
                   >
-                    <Phone className="w-4 h-4 text-amber-600" />
+                    <Phone className="w-4 h-4 text-[#0047b7]" />
                     <span>{siteConfig.contact.phoneDisplay || siteConfig.contact.phone}</span>
                   </a>
                 )}
@@ -186,7 +186,7 @@ export function Header() {
             <div className="pt-2">
               <Button
                 href="/contact"
-                variant="amber"
+                variant="primary"
                 size="lg"
                 className="w-full text-center"
                 onClick={() => setMobileMenuOpen(false)}

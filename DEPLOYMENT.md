@@ -21,10 +21,17 @@ In your Vercel Project Settings under **Settings → Environment Variables**, co
 | Variable Name | Environment | Value Description | Example / Test Value |
 | :--- | :--- | :--- | :--- |
 | `NEXT_PUBLIC_SITE_URL` | Production | Confirmed canonical domain. | `https://routewave.ae` |
-| `NEXT_PUBLIC_SITE_URL` | Preview | Vercel deployment preview URL or left dynamic. | `https://preview.routewave.ae` |
-| `RESEND_API_KEY` | All | Resend API key for email notifications. | `re_xxxxxxxxxxxx` |
-| `CONTACT_TO_EMAIL` | All | Internal corporate mailbox receiving quotation requests. | `info@routewave.ae` |
-| `CONTACT_FROM_EMAIL` | Production | Sender identity verified in Resend. | `Route Wave Notifications <notifications@routewave.ae>` |
+| `CONTACT_TO_EMAIL` | All | Recipient mailbox (Outlook inbox). | `info@routewave.ae` (Default) |
+| **Tasjeel Direct SMTP** | | *(Option A: Direct via Tasjeel Mail)* | |
+| `SMTP_HOST` | All | Tasjeel mail server hostname. | `mail.routewave.ae` |
+| `SMTP_PORT` | All | Secure SMTP port (465 for SSL, 587 for TLS). | `465` |
+| `SMTP_SECURE` | All | Enable SSL/TLS encryption. | `true` |
+| `SMTP_USER` | All | Tasjeel mailbox username. | `info@routewave.ae` |
+| `SMTP_PASS` | All | Tasjeel mailbox password. | Corporate mailbox password |
+| **Resend Cloud API** | | *(Option B: Resend API)* | |
+| `RESEND_API_KEY` | All | Resend API key. | `re_xxxxxxxxxxxx` |
+| `CONTACT_FROM_EMAIL` | Production | Sender identity. | `Route Wave <info@routewave.ae>` |
+| **Spam Protection** | | *(Cloudflare Turnstile)* | |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Production | Cloudflare Turnstile public site key. | Client-generated key |
 | `TURNSTILE_SECRET_KEY` | Production | Cloudflare Turnstile secret key. | Client-generated key |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Preview / Dev | Cloudflare test site key. | `1x00000000000000000000AA` |
@@ -64,17 +71,27 @@ Vercel will automatically provision and renew a free Let's Encrypt SSL/TLS certi
 
 ---
 
-## 4. Email Sending Verification (Resend & DNS)
+## 4. Email Delivery Configuration (Tasjeel SMTP or Resend)
 
-Resend handles automated notifications when a customer submits a quotation enquiry.
+The contact form endpoint (`/api/contact`) automatically routes all quotation inquiries directly to **`info@routewave.ae`** (received on your Outlook client). You can deliver emails via either method below:
 
+### Option A: Direct Tasjeel SMTP (Recommended — Uses Your Tasjeel Mailbox Directly)
+If your corporate mailbox was purchased on Tasjeel and connected to Outlook, you can send emails directly through Tasjeel without requiring any external accounts:
+1. In your Tasjeel Client / cPanel area, look up your outgoing mail server settings (typically `mail.routewave.ae`).
+2. In your hosting environment variables (e.g., Vercel), set:
+   - `SMTP_HOST`: e.g. `mail.routewave.ae`
+   - `SMTP_PORT`: `465` (or `587`)
+   - `SMTP_USER`: `info@routewave.ae`
+   - `SMTP_PASS`: Your Tasjeel mailbox password
+   - `CONTACT_TO_EMAIL`: `info@routewave.ae`
+3. Any form submission will authenticate with your Tasjeel mail server and land immediately in your Outlook inbox.
+
+### Option B: Cloud API (Resend)
+If you prefer using an API delivery service:
 1. Log in to [Resend Dashboard](https://resend.com) and navigate to **Domains → Add Domain**.
-2. Enter your confirmed sending domain (recommended: `notifications.routewave.ae` or apex `routewave.ae`).
-3. Add the DNS records provided by Resend to your domain's DNS manager:
-   - **DKIM (CNAME / TXT):** Authorizes Resend to sign emails on behalf of the domain.
-   - **SPF (TXT):** Verifies authorized sending IP addresses.
-   - **DMARC (TXT):** Sets domain policy (e.g., `v=DMARC1; p=none;`).
-4. Wait for Resend status to show **Verified** before switching `CONTACT_FROM_EMAIL` to the production domain.
+2. Enter your confirmed sending domain (`routewave.ae` or `notifications.routewave.ae`).
+3. Add the DNS records provided by Resend (DKIM, SPF) in your Tasjeel DNS manager.
+4. Set `RESEND_API_KEY` and `CONTACT_TO_EMAIL=info@routewave.ae`.
 
 ---
 

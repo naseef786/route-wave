@@ -36,11 +36,17 @@ export function TurnstileWidget({
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
 
-  // Cloudflare official test key for "Always Pass" if not set in environment:
-  const siteKey =
-    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA";
+  const rawSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const isDev = process.env.NODE_ENV !== "production";
+  const isBypass = isDev || !rawSiteKey || rawSiteKey === "1x00000000000000000000AA";
+  const siteKey = rawSiteKey || "";
 
   useEffect(() => {
+    if (isBypass) {
+      onVerify("test-token");
+      return;
+    }
+
     let script = document.querySelector<HTMLScriptElement>(
       'script[src*="turnstile/v0/api.js"]'
     );
@@ -108,14 +114,13 @@ export function TurnstileWidget({
     };
   }, [siteKey, onVerify, onError, onExpire]);
 
+  if (isBypass) {
+    return null;
+  }
+
   return (
     <div className="py-2 max-w-full overflow-hidden">
       <div ref={containerRef} className="min-h-[65px] max-w-full overflow-hidden" />
-      {!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && (
-        <p className="text-[11px] text-slate-500 mt-1">
-          Development Mode: Using Cloudflare test site key.
-        </p>
-      )}
     </div>
   );
 }

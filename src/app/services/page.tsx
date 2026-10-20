@@ -144,7 +144,7 @@ export default function ServicesPage() {
                     </p>
                     <Button
                       href={`/contact?service=${service.id}`}
-                      variant="amber"
+                      variant="primary"
                       size="md"
                       className="w-full sm:w-auto text-center"
                       icon={<ArrowRight className="w-4 h-4" />}

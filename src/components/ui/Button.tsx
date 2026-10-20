@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "amber" | "secondary" | "outline" | "white";
+  variant?: "primary" | "amber" | "blue" | "navy" | "secondary" | "outline" | "white";
   size?: "sm" | "md" | "lg";
   href?: string;
   children: React.ReactNode;
@@ -30,13 +30,17 @@ export function Button({
 
   const variantStyles = {
     primary:
-      "bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-950 focus-visible:outline-slate-900 border border-slate-900 shadow-sm",
+      "bg-[#0047b7] text-white hover:bg-[#003994] active:bg-[#002e78] focus-visible:outline-[#0047b7] border border-[#0047b7] shadow-sm",
+    blue:
+      "bg-[#0047b7] text-white hover:bg-[#003994] active:bg-[#002e78] focus-visible:outline-[#0047b7] border border-[#0047b7] shadow-sm",
     amber:
-      "bg-amber-600 text-white hover:bg-amber-700 active:bg-amber-800 focus-visible:outline-amber-600 border border-amber-600 shadow-sm",
+      "bg-[#d4a233] text-slate-950 font-semibold hover:bg-[#c29227] active:bg-[#af831d] focus-visible:outline-[#d4a233] border border-[#c29227] shadow-sm",
+    navy:
+      "bg-[#0a192f] text-white hover:bg-[#061122] active:bg-[#030913] focus-visible:outline-[#0a192f] border border-[#0a192f] shadow-sm",
     secondary:
       "bg-slate-100 text-slate-800 hover:bg-slate-200 active:bg-slate-300 focus-visible:outline-slate-600 border border-slate-200",
     outline:
-      "bg-transparent text-slate-800 hover:bg-slate-50 active:bg-slate-100 focus-visible:outline-slate-600 border border-slate-300",
+      "bg-transparent text-slate-800 hover:bg-slate-50 hover:border-slate-400 active:bg-slate-100 focus-visible:outline-[#0047b7] border border-slate-300",
     white:
       "bg-white text-slate-900 hover:bg-slate-50 active:bg-slate-100 focus-visible:outline-white border border-transparent shadow-sm",
   }[variant];

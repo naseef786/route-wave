@@ -10,8 +10,10 @@
     "test": "node scripts/test-validation.mjs"
   },
   "dependencies": {
+    "@types/nodemailer": "^8.0.2",
     "lucide-react": "^1.59.0",
     "next": "16.4.2",
+    "nodemailer": "^10.1.7",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "resend": "^6.34.1",

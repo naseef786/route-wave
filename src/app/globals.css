@@ -3,11 +3,15 @@
 @layer base {
   :root {
     --background: #ffffff;
-    --foreground: #0f172a;
-    --color-navy: #0b192c;
-    --color-slate-dark: #1e293b;
-    --color-amber-primary: #d97706;
-    --color-amber-hover: #b45309;
+    --foreground: #0a192f;
+    --brand-blue: #0047b7;
+    --brand-blue-hover: #003994;
+    --brand-blue-light: #f0f6ff;
+    --brand-gold: #d4a233;
+    --brand-gold-hover: #c29227;
+    --brand-gold-light: #fef9ee;
+    --brand-navy: #0a192f;
+    --brand-navy-dark: #06162d;
   }
 
   html {
@@ -40,9 +44,9 @@
     max-width: 100vw;
   }
 
-  /* Accessible focus indicators */
+  /* Accessible corporate focus indicators matching brand blue */
   :focus-visible {
-    outline: 2px solid #d97706;
+    outline: 2px solid #0047b7;
     outline-offset: 2px;
   }
 }

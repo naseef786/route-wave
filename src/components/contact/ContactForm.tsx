@@ -485,10 +485,12 @@ export function ContactForm() {
           <TurnstileWidget
             onVerify={handleTurnstileVerify}
             onError={() => {
-              setErrors((prev) => ({
-                ...prev,
-                turnstileToken: "Security check could not be completed. Please refresh.",
-              }));
+              if (process.env.NODE_ENV === "production") {
+                setErrors((prev) => ({
+                  ...prev,
+                  turnstileToken: "Security check could not be completed. Please refresh.",
+                }));
+              }
             }}
           />
           {errors.turnstileToken && (
@@ -515,7 +517,7 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full sm:w-auto inline-flex items-center justify-center min-h-[48px] px-8 py-3 text-sm font-semibold rounded-md bg-amber-600 text-white hover:bg-amber-700 active:bg-amber-800 disabled:opacity-60 disabled:cursor-not-allowed transition-colors cursor-pointer shadow-sm"
+            className="w-full sm:w-auto inline-flex items-center justify-center min-h-[48px] px-8 py-3 text-sm font-semibold rounded-md bg-[#0047b7] text-white hover:bg-[#003994] active:bg-[#002e78] disabled:opacity-60 disabled:cursor-not-allowed transition-colors cursor-pointer shadow-sm"
           >
             {isSubmitting ? (
               <>

@@ -187,7 +187,7 @@ export default function AboutPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               href="/services"
-              variant="amber"
+              variant="primary"
               size="lg"
               icon={<ArrowRight className="w-4 h-4" />}
             >

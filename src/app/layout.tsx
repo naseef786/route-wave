@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -16,7 +17,7 @@ const isProductionDomain =
   process.env.NODE_ENV === "production";
 
 export const viewport: Viewport = {
-  themeColor: "#0F172A",
+  themeColor: "#0047B7",
   width: "device-width",
   initialScale: 1,
 };
@@ -24,7 +25,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: `${siteConfig.brandName} | UAE Commercial Road Transport`,
+    default: `${siteConfig.brandName} | Commercial Transport & Logistics Solutions`,
     template: `%s | ${siteConfig.brandName}`,
   },
   description: siteConfig.supportingCopy,
@@ -38,6 +39,7 @@ export const metadata: Metadata = {
     "commercial road freight UAE",
     "Dubai truck transport",
     "Abu Dhabi road transport",
+    "Mussafah transport",
   ],
   authors: [{ name: siteConfig.brandName }],
   creator: siteConfig.brandName,
@@ -49,7 +51,7 @@ export const metadata: Metadata = {
     locale: "en_AE",
     url: siteConfig.siteUrl,
     siteName: siteConfig.brandName,
-    title: `${siteConfig.brandName} | Commercial Road Transport in the UAE`,
+    title: `${siteConfig.brandName} | Commercial Transport & Logistics Solutions`,
     description: siteConfig.supportingCopy,
     images: [
       {
@@ -62,7 +64,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.brandName} | UAE Commercial Transport`,
+    title: `${siteConfig.brandName} | Commercial Transport & Logistics Solutions`,
     description: siteConfig.supportingCopy,
     images: ["/images/og-image.jpg"],
   },
@@ -83,9 +85,12 @@ export const metadata: Metadata = {
         follow: false,
       },
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/logo-symbol.svg",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
 };
 
@@ -129,6 +134,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );

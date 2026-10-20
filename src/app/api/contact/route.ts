@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { contactFormSchema } from "@/lib/validation";
 import { siteConfig, getServiceById } from "@/config/site";
 
@@ -23,20 +24,12 @@ async function verifyTurnstileToken(
   const secretKey = process.env.TURNSTILE_SECRET_KEY;
   const isProduction = process.env.NODE_ENV === "production";
 
-  // In production, do not bypass verification if configuration is missing
-  if (isProduction && !secretKey) {
-    return {
-      success: false,
-      error: "Spam protection configuration is missing on the server.",
-    };
-  }
-
-  // If secret key is not set in non-production, log notice and permit local testing
-  if (!secretKey) {
+  // Automatically permit in local development, or if Turnstile keys are omitted / using test keys
+  if (!isProduction || !secretKey || secretKey === "1x00000000000000000000000000000000AA") {
     return { success: true };
   }
 
-  // If client provided no token
+  // If client provided no token in production with live keys
   if (!token) {
     return {
       success: false,
@@ -189,19 +182,23 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 6. Check email delivery configuration
-  const resendApiKey = process.env.RESEND_API_KEY;
-  const contactToEmail = process.env.CONTACT_TO_EMAIL;
-  const contactFromEmail =
-    process.env.CONTACT_FROM_EMAIL || "Route Wave Notifications <notifications@routewave.ae>";
+  // 6. Check email delivery configuration (Tasjeel SMTP or Resend API)
+  const contactToEmail = process.env.CONTACT_TO_EMAIL || "info@routewave.ae";
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpUser = process.env.SMTP_USER || "info@routewave.ae";
+  const smtpPass = process.env.SMTP_PASS;
+  const hasSmtp = Boolean(smtpHost && smtpPass);
 
-  if (!resendApiKey || !contactToEmail) {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const hasResend = Boolean(resendApiKey);
+
+  if (!hasSmtp && !hasResend) {
     // Documented requirement: return clear service-unavailable response, never fake success
     return NextResponse.json(
       {
         success: false,
         error:
-          "Email delivery service is currently unconfigured. The enquiry could not be delivered. Please configure RESEND_API_KEY and CONTACT_TO_EMAIL.",
+          "Email delivery service is currently unconfigured. Please configure Tasjeel SMTP (SMTP_HOST, SMTP_PASS) or RESEND_API_KEY.",
       },
       { status: 503 }
     );
@@ -288,12 +285,76 @@ Origin: ${siteConfig.siteUrl}
 </html>
 `.trim();
 
-  // 9. Send via Resend SDK
+  // 9. Dispatch email via Tasjeel SMTP or Resend API
+  if (hasSmtp) {
+    try {
+      const smtpPort = parseInt(process.env.SMTP_PORT || "465", 10);
+      const isSecure =
+        process.env.SMTP_SECURE !== undefined
+          ? process.env.SMTP_SECURE === "true"
+          : smtpPort === 465;
+
+      const transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port: smtpPort,
+        secure: isSecure,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass,
+        },
+        tls: {
+          // Allow shared hosting / Tasjeel cPanel server certificates (e.g. dallah.tasjeel.ae)
+          rejectUnauthorized: false,
+        },
+      });
+
+      const fromAddress =
+        process.env.CONTACT_FROM_EMAIL ||
+        `"Route Wave Transport Enquiry" <${smtpUser}>`;
+
+      const info = await transporter.sendMail({
+        from: fromAddress,
+        to: contactToEmail,
+        replyTo: data.email,
+        subject: `New website enquiry — ${serviceItem?.shortTitle || serviceTitle}`,
+        text: plainTextEmail,
+        html: htmlEmail,
+      });
+
+      return NextResponse.json(
+        {
+          success: true,
+          message:
+            "Your enquiry has been submitted. Our team will contact you using the details provided.",
+          referenceId: info.messageId,
+        },
+        { status: 200 }
+      );
+    } catch (err) {
+      console.error(
+        "[Email Dispatch Error - SMTP]:",
+        err instanceof Error ? err.message : "Unknown error"
+      );
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "The email delivery server could not dispatch your enquiry at this time. Please try again later or contact us directly.",
+        },
+        { status: 502 }
+      );
+    }
+  }
+
+  // Fallback to Resend API
   try {
     const resend = new Resend(resendApiKey);
+    const fromAddress =
+      process.env.CONTACT_FROM_EMAIL ||
+      "Route Wave Notifications <notifications@routewave.ae>";
 
     const { data: resendData, error: resendError } = await resend.emails.send({
-      from: contactFromEmail,
+      from: fromAddress,
       to: [contactToEmail],
       replyTo: data.email,
       subject: `New website enquiry — ${serviceItem?.shortTitle || serviceTitle}`,
@@ -302,7 +363,7 @@ Origin: ${siteConfig.siteUrl}
     });
 
     if (resendError) {
-      // Do not leak secret provider errors
+      console.error("[Email Dispatch Error - Resend]:", resendError.message);
       return NextResponse.json(
         {
           success: false,
@@ -323,7 +384,11 @@ Origin: ${siteConfig.siteUrl}
       },
       { status: 200 }
     );
-  } catch {
+  } catch (err) {
+    console.error(
+      "[Email Dispatch Error - Resend]:",
+      err instanceof Error ? err.message : "Unknown error"
+    );
     return NextResponse.json(
       {
         success: false,

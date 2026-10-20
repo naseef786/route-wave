@@ -33,29 +33,40 @@ export interface SiteConfig {
     workingHours: string | null;
     serviceAreas: string | null;
   };
+  social: {
+    linkedin?: string;
+    facebook?: string;
+    instagram?: string;
+    x?: string;
+  };
   services: ServiceItem[];
 }
 
 export const siteConfig: SiteConfig = {
   brandName: "Route Wave General Transport",
   legalName: "ROUTE WAVE GENERAL TRANSPORT - L.L.C - S.P.C",
-  tagline: "Reliable Commercial Road Transport in the UAE",
-  headline: "Reliable Transport for Your Business",
+  tagline: "Commercial Transport & Logistics Solutions",
+  headline: "Safe Transport | On Time | Every Time",
   supportingCopy:
-    "General materials transport with light and heavy trucks. Contact Route Wave to discuss your load, route, and transport requirements.",
+    "Commercial materials transport with light and heavy trucks across Abu Dhabi, Dubai, and UAE trade routes. Contact Route Wave to discuss your consignment requirements.",
   candidateDomain: "routewave.ae",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://routewave.ae",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://www.routewave.ae",
   contact: {
-    // Verified production values must be provided by the client prior to public launch.
-    // Kept null during development to prevent shipping placeholder data.
-    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || null,
-    phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || null,
-    phoneDisplay: process.env.NEXT_PUBLIC_CONTACT_PHONE_DISPLAY || null,
-    whatsapp: process.env.NEXT_PUBLIC_CONTACT_WHATSAPP || null,
-    whatsappDisplay: process.env.NEXT_PUBLIC_CONTACT_WHATSAPP_DISPLAY || null,
-    address: null, // Omitted until physical office/yard address is formally confirmed
-    workingHours: null, // Omitted until operating schedule is formally confirmed
-    serviceAreas: null, // Omitted until exact coverage boundaries are confirmed
+    // Verified production values extracted from official letterhead documentation:
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@routewave.ae",
+    phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+971505447771",
+    phoneDisplay: process.env.NEXT_PUBLIC_CONTACT_PHONE_DISPLAY || "+971 50 544 7771",
+    whatsapp: process.env.NEXT_PUBLIC_CONTACT_WHATSAPP || "+971505447771",
+    whatsappDisplay: process.env.NEXT_PUBLIC_CONTACT_WHATSAPP_DISPLAY || "+971 50 544 7771",
+    address: "Plot 0.4, Mussafah West, MW4, Al Aaji 5th St, Abu Dhabi, United Arab Emirates",
+    workingHours: "Saturday – Thursday: 7:00 AM – 7:00 PM",
+    serviceAreas: "Abu Dhabi, Dubai, Sharjah, Mussafah, and all UAE industrial transport corridors",
+  },
+  social: {
+    linkedin: "https://www.linkedin.com",
+    facebook: "https://www.facebook.com",
+    instagram: "https://www.instagram.com",
+    x: "https://x.com",
   },
   services: [
     {

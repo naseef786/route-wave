@@ -61,7 +61,7 @@ export default function ContactPage() {
                 </h2>
                 <div className="space-y-4 text-xs sm:text-sm text-slate-650 leading-relaxed">
                   <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                    <div className="w-6 h-6 rounded-full bg-blue-100 text-[#0047b7] flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
                       1
                     </div>
                     <p>
@@ -70,7 +70,7 @@ export default function ContactPage() {
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                    <div className="w-6 h-6 rounded-full bg-blue-100 text-[#0047b7] flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
                       2
                     </div>
                     <p>
@@ -79,7 +79,7 @@ export default function ContactPage() {
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                    <div className="w-6 h-6 rounded-full bg-blue-100 text-[#0047b7] flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
                       3
                     </div>
                     <p>
@@ -104,12 +104,12 @@ export default function ContactPage() {
                   <div className="space-y-3 text-sm">
                     {siteConfig.contact.email && (
                       <div className="flex items-start gap-3">
-                        <Mail className="w-4 h-4 text-amber-600 mt-1 shrink-0" />
+                        <Mail className="w-4 h-4 text-[#0047b7] mt-1 shrink-0" />
                         <div>
                           <p className="text-xs text-slate-500 font-semibold">Email Address</p>
                           <a
                             href={`mailto:${siteConfig.contact.email}`}
-                            className="font-medium text-slate-900 hover:text-amber-700 transition-colors"
+                            className="font-medium text-slate-900 hover:text-[#0047b7] transition-colors"
                           >
                             {siteConfig.contact.email}
                           </a>
@@ -119,12 +119,12 @@ export default function ContactPage() {
 
                     {siteConfig.contact.phone && (
                       <div className="flex items-start gap-3">
-                        <Phone className="w-4 h-4 text-amber-600 mt-1 shrink-0" />
+                        <Phone className="w-4 h-4 text-[#0047b7] mt-1 shrink-0" />
                         <div>
                           <p className="text-xs text-slate-500 font-semibold">Telephone</p>
                           <a
                             href={`tel:${siteConfig.contact.phone}`}
-                            className="font-medium text-slate-900 hover:text-amber-700 transition-colors"
+                            className="font-medium text-slate-900 hover:text-[#0047b7] transition-colors"
                           >
                             {siteConfig.contact.phoneDisplay || siteConfig.contact.phone}
                           </a>
