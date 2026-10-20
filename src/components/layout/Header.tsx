@@ -50,7 +50,7 @@ export function Header() {
   }, [mobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-colors">
+    <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Brand Logo */}
@@ -109,15 +109,15 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 rounded-md text-slate-700 hover:text-slate-950 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-amber-600"
+              className="p-2.5 rounded-md text-slate-700 hover:text-slate-950 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-amber-600 cursor-pointer"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation"
               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6" aria-hidden="true" />
+                <X className="w-6 h-6 text-slate-900" aria-hidden="true" />
               ) : (
-                <Menu className="w-6 h-6" aria-hidden="true" />
+                <Menu className="w-6 h-6 text-slate-900" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -128,11 +128,11 @@ export function Header() {
       {mobileMenuOpen && (
         <div
           id="mobile-navigation"
-          className="fixed inset-0 top-20 z-50 bg-slate-950/70 backdrop-blur-sm md:hidden overflow-hidden"
+          className="fixed top-20 inset-x-0 bottom-0 z-50 bg-slate-950/70 md:hidden flex flex-col"
           onClick={() => setMobileMenuOpen(false)}
         >
           <div
-            className="bg-white border-b border-slate-200 px-4 pt-4 pb-8 space-y-4 shadow-2xl max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain"
+            className="bg-white border-b border-slate-200 px-5 pt-4 pb-8 space-y-4 shadow-2xl max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain w-full"
             onClick={(e) => e.stopPropagation()}
           >
             <nav className="flex flex-col space-y-1" aria-label="Mobile Navigation">
