@@ -14,6 +14,25 @@ export interface ServiceItem {
   approvalNote?: string; // Internal record for handover documentation
 }
 
+export interface FleetVehicleItem {
+  id: string;
+  title: string;
+  badge: string;
+  category: string;
+  vehicleModel: string;
+  orientation: "portrait-tall" | "portrait-standard";
+  aspectRatioDisplay: string;
+  image: string;
+  imageAlt: string;
+  caption: string;
+  summary: string;
+  specs: {
+    label: string;
+    value: string;
+  }[];
+  capabilities: string[];
+}
+
 export interface SiteConfig {
   brandName: string;
   legalName: string;
@@ -40,6 +59,7 @@ export interface SiteConfig {
     x?: string;
   };
   services: ServiceItem[];
+  fleetVehicles: FleetVehicleItem[];
 }
 
 export const siteConfig: SiteConfig = {
@@ -145,6 +165,64 @@ export const siteConfig: SiteConfig = {
         "Subject to additional trade license approval condition. Retained in codebase and configuration, but set to enabled: false. Flip to true only after client obtains statutory approval and gives operational authorization.",
     },
   ],
+  fleetVehicles: [
+    {
+      id: "heavy-tipper-quarry",
+      title: "Heavy Semi-Tipper Bulk Haulage",
+      badge: "Quarry & Excavation Operations",
+      category: "High-Capacity Bulk Haulage",
+      vehicleModel: "Volvo Globetrotter Heavy Tractor + Tri-Axle Semi-Tipper Trailer",
+      orientation: "portrait-tall",
+      aspectRatioDisplay: "9:19 Vertical Orientation",
+      image: "/images/heavy-tipper-quarry-operations.jpg",
+      imageAlt: "Volvo Globetrotter heavy tipper semi-trailer loading sand aggregate in a UAE quarry excavation pit",
+      caption: "High-capacity heavy tipper unit active in bulk sand, gravel, and earthworks excavation haulage.",
+      summary:
+        "Engineered for deep-pit quarry excavation and massive aggregate transfer. Combines high-payload tri-axle tipper trailers with high-torque tractor units for dependable bulk haulage.",
+      specs: [
+        { label: "Axle Setup", value: "Multi-Axle Tractor + Tri-Axle Semi-Tipper" },
+        { label: "Payload Capacity", value: "Up to 45–50 Metric Tonnes" },
+        { label: "Primary Cargo", value: "Sand, Gravel, Aggregates & Excavation Fill" },
+        { label: "Terrain Capability", value: "Quarry Pits, Desert Sites & Highway Corridors" },
+        { label: "Discharge Method", value: "High-Angle Rear Hydraulic Tipping" },
+        { label: "Route Scope", value: "All UAE Industrial Corridors & Extraction Zones" },
+      ],
+      capabilities: [
+        "Continuous high-tonnage aggregate transit from extraction quarries to batching plants",
+        "Deep quarry pit accessibility with high-torque multi-axle traction",
+        "Fast hydraulic discharge reducing turnaround times at destination yards",
+        "Strict compliance with UAE road axle weight and cargo containment regulations",
+      ],
+    },
+    {
+      id: "mercedes-actros-tipper-fleet",
+      title: "All-Terrain Heavy Tipper Fleet",
+      badge: "Multi-Axle Desert & Site Fleet",
+      category: "Heavy-Duty All-Terrain Tippers",
+      vehicleModel: "Mercedes-Benz Actros Multi-Axle Heavy-Duty Dump Trucks",
+      orientation: "portrait-standard",
+      aspectRatioDisplay: "4:5 Portrait Orientation",
+      image: "/images/mercedes-actros-tipper-fleet.jpg",
+      imageAlt: "Fleet of Mercedes-Benz Actros heavy tipper trucks deployed in UAE desert and construction terrain",
+      caption: "Rugged multi-axle all-terrain tippers equipped for desert sand tracks and demanding infrastructure projects.",
+      summary:
+        "Built for severe off-road construction sites, unpaved sand tracks, and heavy infrastructure developments across Abu Dhabi, Dubai, and UAE desert corridors.",
+      specs: [
+        { label: "Chassis Series", value: "Mercedes-Benz Actros Heavy Duty" },
+        { label: "Tire Configuration", value: "Deep-Tread Heavy-Lug Off-Road Tires" },
+        { label: "Drive Configuration", value: "Multi-Axle All-Wheel Site Drive" },
+        { label: "Site Readiness", value: "Soft Sand, Graded Tracks & Rough Terrains" },
+        { label: "Deployment Scope", value: "Earthworks, Land Reclamation & Infrastructure" },
+        { label: "Operating Capacity", value: "High-Volume Repeated Site Shuttle Cycles" },
+      ],
+      capabilities: [
+        "Superior tractive effort across loose sand and uncompacted construction surfaces",
+        "Heavy-gauge reinforced steel tipper bodies resistant to abrasive rock and fill",
+        "High ground clearance engineered for rough terrain and active excavation access",
+        "Reliable fleet coordination for major infrastructure and land development projects",
+      ],
+    },
+  ],
 };
 
 // Helper to retrieve only publicly active services
@@ -158,3 +236,9 @@ export function getServiceById(idOrSlug: string): ServiceItem | undefined {
     (s) => s.id === idOrSlug || s.slug === idOrSlug
   );
 }
+
+// Helper to retrieve fleet vehicles
+export function getFleetVehicles(): FleetVehicleItem[] {
+  return siteConfig.fleetVehicles;
+}
+

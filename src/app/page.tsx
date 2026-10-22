@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { siteConfig, getActiveServices } from "@/config/site";
+import { FleetOrientationShowcase } from "@/components/fleet/FleetOrientationShowcase";
 
 export default function HomePage() {
   const activeServices = getActiveServices();
@@ -266,7 +267,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. Three-Step Enquiry Process */}
+      {/* 4. Real-World Field Operations & Heavy Tipper Fleet (Portrait Orientation Showcase) */}
+      <FleetOrientationShowcase variant="home" />
+
+      {/* 5. Three-Step Enquiry Process */}
       <section className="py-16 sm:py-24 bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">

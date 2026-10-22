@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { getActiveServices } from "@/config/site";
+import { FleetOrientationShowcase } from "@/components/fleet/FleetOrientationShowcase";
 
 export const metadata: Metadata = {
   title: "Commercial Road Transport Services",
@@ -135,6 +136,24 @@ export default function ServicesPage() {
                         ))}
                       </ul>
                     </div>
+
+                    {service.id === "heavy-trucks" && (
+                      <div className="mb-6 p-3.5 rounded-lg bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-slate-800">
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0" />
+                          <span className="text-xs font-semibold text-slate-200">
+                            Active Heavy Tipper & Bulk Quarry Haulage Units Available
+                          </span>
+                        </div>
+                        <a
+                          href="#field-operations-showcase"
+                          className="text-xs font-bold text-amber-400 hover:text-amber-300 inline-flex items-center gap-1 shrink-0 transition-colors"
+                        >
+                          <span>View Field Showcase</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+                    )}
                   </div>
 
                   {/* Service CTA */}
@@ -159,6 +178,9 @@ export default function ServicesPage() {
           ))}
         </div>
       </section>
+
+      {/* Heavy Tipper & Bulk Materials Transport Spotlight (Portrait Orientation Showcase) */}
+      <FleetOrientationShowcase variant="services" />
 
       {/* General Transport Enquiry Guidance */}
       <section className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200">

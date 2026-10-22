@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, Truck, ShieldCheck, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { FleetOrientationShowcase } from "@/components/fleet/FleetOrientationShowcase";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -173,6 +174,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Field Equipment & Heavy Fleet Operational Readiness (Portrait Orientation Showcase) */}
+      <FleetOrientationShowcase variant="about" />
 
       {/* Quick Links & CTA */}
       <section className="py-16 sm:py-20 bg-white">
